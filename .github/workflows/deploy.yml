@@ -1,0 +1,46 @@
+name: Deploy
+# Publishes the site to Cloudflare Workers on every push to main (i.e. when a
+# PR merges), and on demand from the Actions tab. This is what makes a merge
+# actually go live — without it, main can be ahead of the deployed site.
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+# Never run two deploys at once, and never cancel one mid-flight (a half-finished
+# deploy is worse than a queued one).
+concurrency:
+  group: deploy-${{ github.ref }}
+  cancel-in-progress: false
+
+permissions:
+  contents: read
+
+jobs:
+  deploy:
+    name: Build & deploy to Cloudflare
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v7
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      # `npm run deploy` is the project's own command: `astro build && wrangler deploy`.
+      # wrangler reads name/bindings/routes from wrangler.jsonc; it authenticates
+      # from these two secrets (set them in Settings → Secrets and variables → Actions).
+      - name: Build & deploy
+        run: npm run deploy
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+
+      # If a change adds a D1 migration, apply it to the live database by running
+      # `npm run db:migrate:remote` locally, or uncomment the step below.
+      # - name: Apply D1 migrations
+      #   run: npm run db:migrate:remote -- --yes
+      #   env:
+      #     CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+      #     CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
