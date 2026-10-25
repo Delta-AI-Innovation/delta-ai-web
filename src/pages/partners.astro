@@ -2,6 +2,7 @@
 import BaseLayout from '@/layouts/BaseLayout.astro';
 import Breadcrumbs from '@/components/Breadcrumbs.astro';
 import SectionHeading from '@/components/SectionHeading.astro';
+import NeuralField from '@/components/NeuralField.astro';
 import Icon from '@/components/Icon.astro';
 import { site } from '@/lib/site';
 
@@ -35,12 +36,15 @@ const types = ['IT / computer shop', 'CA / accountant', 'Marketing or design age
   description={`Refer local businesses to ${site.legalName}. A partner programme for IT shops, CAs, agencies and consultants across India.`}
 >
   <div class="wrap page">
-    <Breadcrumbs items={[{ name: 'Partners', href: '/partners' }]} />
-    <SectionHeading as="h1" eyebrow="Partner programme" before="Know a business that needs AI?" accent="Let’s grow together." />
-    <p class="lead intro">
-      You already have the trust of local businesses. We have the team to build their AI assistants, booking systems and apps. Introduce us — we do the work, you get
-      rewarded, and your client gets software that actually helps.
-    </p>
+    <div class="hero-head">
+      <NeuralField />
+      <Breadcrumbs items={[{ name: 'Partners', href: '/partners' }]} />
+      <SectionHeading as="h1" eyebrow="Partner programme" before="Know a business that needs AI?" accent="Let’s grow together." />
+      <p class="lead intro">
+        You already have the trust of local businesses. We have the team to build their AI assistants, booking systems and apps. Introduce us — we do the work, you get
+        rewarded, and your client gets software that actually helps.
+      </p>
+    </div>
 
     <h2 class="eyebrow block-title">Who it’s for</h2>
     <ul class="cards">

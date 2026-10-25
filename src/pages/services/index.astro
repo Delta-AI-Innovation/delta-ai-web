@@ -2,6 +2,7 @@
 import { getCollection } from 'astro:content';
 import BaseLayout from '@/layouts/BaseLayout.astro';
 import SectionHeading from '@/components/SectionHeading.astro';
+import NeuralField from '@/components/NeuralField.astro';
 import ServiceCard from '@/components/ServiceCard.astro';
 import Breadcrumbs from '@/components/Breadcrumbs.astro';
 import ContactSection from '@/components/ContactSection.astro';
@@ -11,8 +12,11 @@ const services = (await getCollection('services', ({ data }) => !data.draft)).so
 
 <BaseLayout title="Services" description="AI solutions, web and mobile apps, payment integrations, legacy .NET modernization, business systems and booking SaaS — built and supported by Delta AI.">
   <div class="wrap page">
-    <Breadcrumbs items={[{ name: 'Services', href: '/services' }]} />
-    <SectionHeading as="h1" eyebrow="Services" before="Everything you need to" accent="ship" after=", in one team." />
+    <div class="hero-head">
+      <NeuralField />
+      <Breadcrumbs items={[{ name: 'Services', href: '/services' }]} />
+      <SectionHeading as="h1" eyebrow="Services" before="Everything you need to" accent="ship" after=", in one team." />
+    </div>
     <div class="grid">
       {services.map((s) => <ServiceCard service={s} headingLevel="h2" />)}
     </div>

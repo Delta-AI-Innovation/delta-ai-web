@@ -234,6 +234,13 @@ button {
   padding-block: var(--section) 40px;
 }
 
+/* Anchors the decorative AI neural field (an absolutely-positioned canvas) to
+   just the hero heading area on inner pages, matching the home hero. */
+.hero-head {
+  position: relative;
+  padding-bottom: clamp(12px, 3vw, 28px);
+}
+
 .sr-only {
   position: absolute;
   width: 1px;

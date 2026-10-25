@@ -2,6 +2,7 @@
 import BaseLayout from '@/layouts/BaseLayout.astro';
 import Breadcrumbs from '@/components/Breadcrumbs.astro';
 import SectionHeading from '@/components/SectionHeading.astro';
+import NeuralField from '@/components/NeuralField.astro';
 import ContactSection from '@/components/ContactSection.astro';
 import Icon from '@/components/Icon.astro';
 import { site } from '@/lib/site';
@@ -34,12 +35,15 @@ const jsonLd = [
 
 <BaseLayout title="About" description={`${site.legalName} is a ${site.contact.city} startup building AI agents, web apps and secure business software for Indian small businesses.`} jsonLd={jsonLd}>
   <div class="wrap page">
-    <Breadcrumbs items={[{ name: 'About', href: '/about' }]} />
-    <SectionHeading as="h1" eyebrow="About us" before="A small team building" accent="practical AI" after=" for Indian businesses." />
-    <p class="lead intro">
-      {site.legalName} designs, builds and supports AI-powered software for small and growing businesses — assistants that answer customers on WhatsApp, apps that
-      replace spreadsheets, and payment flows that just work. We are based in {site.contact.city} and work with clients across India.
-    </p>
+    <div class="hero-head">
+      <NeuralField />
+      <Breadcrumbs items={[{ name: 'About', href: '/about' }]} />
+      <SectionHeading as="h1" eyebrow="About us" before="A small team building" accent="practical AI" after=" for Indian businesses." />
+      <p class="lead intro">
+        {site.legalName} designs, builds and supports AI-powered software for small and growing businesses — assistants that answer customers on WhatsApp, apps that
+        replace spreadsheets, and payment flows that just work. We are based in {site.contact.city} and work with clients across India.
+      </p>
+    </div>
 
     <dl class="facts">
       {

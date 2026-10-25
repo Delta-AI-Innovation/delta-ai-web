@@ -3,6 +3,7 @@ import { getCollection } from 'astro:content';
 import BaseLayout from '@/layouts/BaseLayout.astro';
 import Breadcrumbs from '@/components/Breadcrumbs.astro';
 import SectionHeading from '@/components/SectionHeading.astro';
+import NeuralField from '@/components/NeuralField.astro';
 import WorkCard from '@/components/WorkCard.astro';
 import ContactSection from '@/components/ContactSection.astro';
 
@@ -11,9 +12,12 @@ const projects = (await getCollection('work', ({ data }) => !data.draft)).sort((
 
 <BaseLayout title="Our work" description="Products and client projects by Delta AI: QR restaurant ordering, live AI translation for support, lead-management CRM, HR platforms and live salon queues.">
   <div class="wrap page">
-    <Breadcrumbs items={[{ name: 'Work', href: '/work' }]} />
-    <SectionHeading as="h1" eyebrow="Our work" before="Products and projects we’ve" accent="actually built" after="." />
-    <p class="lead intro">From a live queue running at a busy Delhi salon to AI translation for support teams — here’s what we’ve shipped and what we’re building.</p>
+    <div class="hero-head">
+      <NeuralField />
+      <Breadcrumbs items={[{ name: 'Work', href: '/work' }]} />
+      <SectionHeading as="h1" eyebrow="Our work" before="Products and projects we’ve" accent="actually built" after="." />
+      <p class="lead intro">From a live queue running at a busy Delhi salon to AI translation for support teams — here’s what we’ve shipped and what we’re building.</p>
+    </div>
     <div class="grid">
       {projects.map((p) => <WorkCard project={p} />)}
     </div>
