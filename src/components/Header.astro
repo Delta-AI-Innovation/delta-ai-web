@@ -74,11 +74,21 @@ const path = Astro.url.pathname.replace(/\.html$/, '');
     gap: 16px;
     padding: 10px 12px 10px 18px;
     border-radius: var(--r-md);
-    background: rgba(var(--base-rgb), 0.62);
+    /* Opaque enough that page content never reads through the bar while it
+       sticks over the hero, even where the browser doesn't composite the
+       backdrop blur; the blur stays as a glass enhancement on top. */
+    background: rgba(var(--base-rgb), 0.92);
     border: 1px solid var(--edge);
-    backdrop-filter: blur(18px);
-    -webkit-backdrop-filter: blur(18px);
+    backdrop-filter: blur(20px) saturate(140%);
+    -webkit-backdrop-filter: blur(20px) saturate(140%);
     box-shadow: 0 10px 40px rgba(var(--shadow-rgb), 0.35), var(--highlight);
+  }
+  /* Browsers (or GPU states) that can't blur the backdrop get a near-solid bar
+     instead, so the nav is always legible over whatever scrolls beneath it. */
+  @supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
+    .bar {
+      background: rgba(var(--base-rgb), 0.96);
+    }
   }
   .links {
     display: flex;

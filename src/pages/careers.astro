@@ -3,6 +3,7 @@ import { getCollection } from 'astro:content';
 import BaseLayout from '@/layouts/BaseLayout.astro';
 import Breadcrumbs from '@/components/Breadcrumbs.astro';
 import SectionHeading from '@/components/SectionHeading.astro';
+import NeuralField from '@/components/NeuralField.astro';
 import Icon from '@/components/Icon.astro';
 import { site } from '@/lib/site';
 
@@ -41,12 +42,15 @@ const jsonLd = jobs.map(({ data: j }) => ({
   jsonLd={jsonLd}
 >
   <div class="wrap page">
-    <Breadcrumbs items={[{ name: 'Careers', href: '/careers' }]} />
-    <SectionHeading as="h1" eyebrow="Careers" before="Build software that" accent="small businesses" after=" actually use." />
-    <p class="lead intro">
-      We’re a growing team in {site.contact.city} building AI assistants, apps and payment systems for businesses across India. If you like shipping real things and
-      learning fast, we’d love to hear from you.
-    </p>
+    <div class="hero-head">
+      <NeuralField />
+      <Breadcrumbs items={[{ name: 'Careers', href: '/careers' }]} />
+      <SectionHeading as="h1" eyebrow="Careers" before="Build software that" accent="small businesses" after=" actually use." />
+      <p class="lead intro">
+        We’re a growing team in {site.contact.city} building AI assistants, apps and payment systems for businesses across India. If you like shipping real things and
+        learning fast, we’d love to hear from you.
+      </p>
+    </div>
 
     <h2 class="eyebrow perks-title">What you’ll get</h2>
     <ul class="perks">
@@ -265,6 +269,12 @@ const jsonLd = jobs.map(({ data: j }) => ({
   .page {
     padding-top: clamp(40px, 7vw, 72px);
     padding-bottom: clamp(56px, 8vw, 96px);
+  }
+  /* Anchors the decorative AI neural field (absolute canvas) to just the
+     heading area, matching the home hero. */
+  .hero-head {
+    position: relative;
+    padding-bottom: clamp(12px, 3vw, 28px);
   }
   .intro {
     margin-top: 24px;
