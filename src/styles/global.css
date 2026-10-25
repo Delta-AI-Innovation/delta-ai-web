@@ -33,6 +33,8 @@
   --edge: rgba(var(--fg-rgb), 0.09);
   --edge-2: rgba(var(--fg-rgb), 0.14);
   --highlight: inset 0 1px 0 rgba(var(--fg-rgb), 0.07);
+  /* Soft two-layer elevation so glass cards sit above the canvas instead of reading flat. */
+  --elevation: 0 1px 2px rgba(var(--shadow-rgb), 0.5), 0 24px 56px -20px rgba(var(--shadow-rgb), 0.72);
 
   --font-sans: 'Geist Variable', system-ui, -apple-system, 'Segoe UI', sans-serif;
   --font-serif: 'Instrument Serif', Georgia, serif;
@@ -77,6 +79,7 @@
   --edge: rgba(15, 23, 42, 0.1);
   --edge-2: rgba(15, 23, 42, 0.16);
   --highlight: inset 0 1px 0 rgba(255, 255, 255, 0.9);
+  --elevation: 0 1px 2px rgba(var(--shadow-rgb), 0.08), 0 18px 44px -18px rgba(var(--shadow-rgb), 0.16);
 }
 @media (prefers-color-scheme: light) {
   :root:not([data-theme='dark']) {
@@ -107,12 +110,12 @@
     --edge: rgba(15, 23, 42, 0.1);
     --edge-2: rgba(15, 23, 42, 0.16);
     --highlight: inset 0 1px 0 rgba(255, 255, 255, 0.9);
+    --elevation: 0 1px 2px rgba(var(--shadow-rgb), 0.08), 0 18px 44px -18px rgba(var(--shadow-rgb), 0.16);
 }
 }
-/* Shadows read heavier on light backgrounds; soften them. */
-:root[data-theme='light'] .glass,
+/* The mint CTA's glow reads heavy on light; soften it (glass depth comes from --elevation). */
 :root[data-theme='light'] .btn--primary {
-  box-shadow: 0 1px 2px rgba(15, 23, 42, 0.06), 0 8px 24px rgba(15, 23, 42, 0.06);
+  box-shadow: 0 1px 2px rgba(15, 23, 42, 0.06), 0 10px 28px rgba(15, 23, 42, 0.08);
 }
 @media (prefers-reduced-motion: no-preference) {
   html.theme-anim,
@@ -314,7 +317,11 @@ button {
 .btn--primary {
   background: var(--mint);
   color: var(--mint-ink);
-  box-shadow: 0 0 0 1px rgba(var(--fg-rgb), 0.3) inset, 0 12px 36px rgba(var(--mint-rgb), 0.25);
+  /* inner ring + a soft top light-catch for a premium, dimensional CTA */
+  box-shadow:
+    0 0 0 1px rgba(var(--fg-rgb), 0.3) inset,
+    inset 0 1px 0 rgba(255, 255, 255, 0.22),
+    0 12px 36px rgba(var(--mint-rgb), 0.25);
 }
 .btn--primary:hover {
   color: var(--mint-ink);
@@ -346,7 +353,7 @@ button {
   background: var(--glass);
   border: 1px solid var(--edge);
   border-radius: var(--r-lg);
-  box-shadow: var(--highlight);
+  box-shadow: var(--highlight), var(--elevation);
 }
 .glass--tint {
   background: linear-gradient(180deg, rgba(var(--mint-rgb), 0.1), rgba(var(--fg-rgb), 0.02));
